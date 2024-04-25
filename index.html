@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="keywords"
+      content="todo, list, todolist, todos, task, tasklist, tasks"
+    />
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <meta
+      name="description"
+      content="Todo list with all data stored in the LocalStorage."
+    />
+    <script
+      src="https://kit.fontawesome.com/bed62f5b0e.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <dialog id="modal" class="modal">
+      <div class="modal-content">
+        <button id="modal-close"><i class="fa-solid fa-xmark"></i></button>
+        <h2>Add your task</h2>
+        <form>
+          <div class="inputs">
+            <input id="task-input" type="text" />
+            <input id="task-date" type="date" name="" id="" />
+          </div>
+          <div class="form-actions">
+            <button id="form-submit">add</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+    <div class="wrapper">
+      <header class="header">
+        <div class="content-wrapper">
+          <img class="logo" src="/img/todo_logo.svg" alt="todo list logo" />
+          <nav class="navigation">
+            <ul>
+              <li><a class="nav-link active" href="/">home</a></li>
+              <li><a class="nav-link" href="/tasks">my tasks</a></li>
+              <li><a class="nav-link" href="/about">about</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="profits">
+          <div class="profit">
+            <img src="/img/callendar.png" alt="" />
+            <p>Plan your day</p>
+          </div>
+          <div class="profit">
+            <img src="/img/lock.png" alt="" />
+            <p>Keep your tasks</p>
+          </div>
+          <div class="profit">
+            <img src="/img/clock.png" alt="" />
+            <p>Save your time</p>
+          </div>
+        </div>
+        <div class="welcome-msg">
+          <h1>Welcome to your personal task manager.</h1>
+          <p>Seems like you have no tasks yet.</p>
+        </div>
+        <div class="actions">
+          <button id="add-task">Add your first task</button>
+        </div>
+      </main>
+      <footer class="footer">
+        <p>&copy; 2024 adam czerniak</p>
+        <ul class="icons">
+          <li>
+            <a href=""><i class="fa-brands fa-square-facebook"></i></a>
+          </li>
+          <li>
+            <a href=""><i class="fa-brands fa-linkedin"></i></a>
+          </li>
+          <li>
+            <a href=""><i class="fa-brands fa-square-github"></i></a>
+          </li>
+        </ul>
+      </footer>
+    </div>
+
+    <script src="/js/script.js" type="module"></script>
+  </body>
+</html>
