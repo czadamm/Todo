@@ -1,13 +1,14 @@
-import { TASKS } from "./tasks.js";
 import * as utils from "./utils.js";
 
-const button = document.getElementById("add-task");
+const buttonAddTask = document.getElementById("add-task");
 const dialog = document.getElementById("modal");
 
-button.addEventListener("click", () => {
+// open modal
+buttonAddTask.addEventListener("click", () => {
   dialog.showModal();
 });
 
+// modal
 const dialogClose = document.getElementById("modal-close");
 
 const closeModalHandler = () => {
@@ -20,16 +21,38 @@ dialogClose.addEventListener("click", () => {
   dialog.classList.add("hide");
   dialog.addEventListener("webkitAnimationEnd", closeModalHandler, false);
 });
+// end modal
+
+// loading tasks from LocalStorage
+const myTasks = JSON.parse(localStorage.getItem("myTasks")) || [];
+
+// conditionally change button text and paragraph
+const paragraph = document.getElementById("actions-paragraph");
+
+if (myTasks.length === 0) {
+  buttonAddTask.innerText = "add your first task";
+  paragraph.innerText =
+    "Seems like you don't have any task yet, use button belowe to create one!";
+} else {
+  buttonAddTask.innerText = "add task";
+  paragraph.innerText = "";
+}
+// end conditionally change button text and paragraph
+
+// adding task to array and to LocalStorage
+function addTask(task) {
+  myTasks.push(task);
+  localStorage.setItem("myTasks", JSON.stringify(myTasks));
+}
+
+function checkInput(input) {
+  if (input.value.trim() === "") {
+    input.classList.add("error");
+    console.log(input.name + " can not be empty");
+  }
+}
 
 const formSubmit = document.getElementById("add-task-form");
-
-const myTasks = JSON.parse(localStorage.getItem("myTasks"));
-
-const addTask = (task) => {
-  myTasks.push(task);
-
-  localStorage.setItem("myTasks", JSON.stringify(myTasks));
-};
 
 formSubmit.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -37,13 +60,12 @@ formSubmit.addEventListener("submit", (event) => {
   const input = document.getElementById("task-input");
   const date = document.getElementById("task-date");
 
-  if (input.value.trim() === "" || date.value === "") {
-    throw new Error("all fields are required");
-  }
+  checkInput(input);
+  checkInput(date);
 
   const id = utils.randomId(1, 2);
-  const taskText = input.value;
-  const taskDate = new Date(date.value).toLocaleDateString();
+  let taskText = input.value;
+  let taskDate = new Date(date.value).toLocaleDateString();
 
   const task = {
     id,
@@ -54,5 +76,4 @@ formSubmit.addEventListener("submit", (event) => {
 
   addTask(task);
 });
-
-console.log(myTasks);
+// end adding task to array and to LocalStorage
