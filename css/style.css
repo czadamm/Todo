@@ -444,6 +444,7 @@ main p.first-paragraph {
   display: flex;
   margin-top: 3rem;
   padding: 1rem;
+  min-height: 400px;
   /* background-color: gray; */
 }
 

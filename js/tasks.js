@@ -17,9 +17,11 @@ function reloadActiveList() {
       singleTask.innerHTML = `
         <div>
           <div class="task-actions">
-            <button class="complete">
-              <i class="fa-solid fa-check"></i>
-            </button>
+            <div data-key=${task.id}>
+              <button class="complete">
+                <i class="fa-solid fa-check"></i>
+              </button>
+            </div>
             <div data-key=${task.id}>
               <button class="priority">
                 <i class="fa-regular fa-star"></i>
@@ -44,8 +46,10 @@ function reloadActiveList() {
       "<p class='no-tasks-msg'>You don't have any task</p>";
   }
 
-  addEventsToButtons();
+  addEventsToRemoveButtons();
+  addEventsToCompleteButtons();
 }
+
 reloadActiveList();
 
 function reloadCompleteList() {
@@ -74,13 +78,13 @@ const errorMessage = document.getElementById("validation-message");
 
 // adding task to array and to LocalStorage
 function addTask(task) {
-  myTasks.push(task);
+  myTasks.unshift(task);
   localStorage.setItem("myTasks", JSON.stringify(myTasks));
 
   reloadActiveList();
 
   const lastTask = document.querySelector(
-    ".active-tasks > .tasks-list > li:last-of-type"
+    ".active-tasks > .tasks-list > li:first-of-type"
   );
 
   function removeNewClass() {
@@ -147,14 +151,15 @@ function removeTask(index) {
   reloadActiveList();
 }
 
-function addTaskToComplete(task) {
-  doneTasks.push(task);
+function addTaskToComplete(task, index) {
+  doneTasks.unshift(task);
   localStorage.setItem("doneTasks", JSON.stringify(doneTasks));
 
+  removeTask(index);
   reloadCompleteList();
 
   const lastTask = document.querySelector(
-    ".past-tasks > .tasks-list > li:last-of-type"
+    ".past-tasks > .tasks-list > li:first-of-type"
   );
 
   function removeNewClass() {
@@ -167,11 +172,12 @@ function addTaskToComplete(task) {
 }
 
 // adding events to task buttons
-const dialog = document.getElementById("modal");
 
-function addEventsToButtons() {
-  // removing tasks
+// removing tasks
+function addEventsToRemoveButtons() {
+  const dialog = document.getElementById("modal");
   const removeButtons = document.querySelectorAll("button.remove");
+
   removeButtons.forEach((button) =>
     button.addEventListener("click", () => {
       const taskId = button.parentNode.dataset.key;
@@ -208,19 +214,20 @@ function addEventsToButtons() {
       });
     })
   );
+}
 
-  // completing tasks
+// completing tasks
+function addEventsToCompleteButtons() {
   const completeButtons = document.querySelectorAll("button.complete");
+
   completeButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const taskId = button.parentNode.dataset.key;
       const index = myTasks.findIndex((task) => task.id === taskId);
-      const task = myTasks.splice(index, 1);
 
-      task[0].done = new Date().toLocaleDateString();
+      myTasks[index].done = new Date().toLocaleDateString();
 
-      addTaskToComplete(task[0]);
-      removeTask(index);
+      addTaskToComplete(myTasks[index], index);
     });
   });
 }
