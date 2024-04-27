@@ -34,9 +34,12 @@ function reloadActiveList() {
           <h3>${task.task}</h3>
           <p>Due: ${task.due}</p>
         </div>
-        <div class="progress-bar">
-          <label for="progress">Time left:</label>
-          <progress id="progress" value="50" max="100"></progress>
+        <div class="progress-bar-section">
+          <p class="progress-label">Time left:</label>
+          <div id="progress-bar">
+            <div id="progress-left"></div>
+          </div>
+          <p class="progress-label" id="timeLeft">1d 22h 3m</p>
         </div>`;
 
       activeList.appendChild(singleTask);
