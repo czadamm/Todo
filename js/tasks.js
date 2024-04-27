@@ -48,6 +48,7 @@ function reloadActiveList() {
 
   addEventsToRemoveButtons();
   addEventsToCompleteButtons();
+  addEventsToPriorityButtons();
 }
 
 reloadActiveList();
@@ -228,6 +229,30 @@ function addEventsToCompleteButtons() {
       myTasks[index].done = new Date().toLocaleDateString();
 
       addTaskToComplete(myTasks[index], index);
+    });
+  });
+}
+
+function addEventsToPriorityButtons() {
+  const priorityButtons = document.querySelectorAll("button.priority");
+
+  priorityButtons.forEach((button) => {
+    button.innerHTML = "";
+
+    const taskId = button.parentNode.dataset.key;
+    const index = myTasks.findIndex((task) => task.id === taskId);
+
+    if (myTasks[index].priority === true) {
+      button.innerHTML = "<i class='fa-solid fa-star'></i>";
+    } else {
+      button.innerHTML = "<i class='fa-regular fa-star'></i>";
+    }
+
+    button.addEventListener("click", () => {
+      myTasks[index].priority = !myTasks[index].priority;
+      localStorage.setItem("myTasks", JSON.stringify(myTasks));
+
+      reloadActiveList();
     });
   });
 }
