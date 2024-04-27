@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="keywords"
+      content="todo, list, todolist, todos, task, tasklist, tasks"
+    />
+    <title>2DO Tasks</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <meta
+      name="description"
+      content="Todo list with all data stored in the LocalStorage."
+    />
+    <script
+      src="https://kit.fontawesome.com/bed62f5b0e.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <dialog id="modal" class="confirm-modal">
+      <div class="modal-content">
+        <h2>Are you sure, you want to delete this task?</h2>
+        <div class="confirm-actions">
+          <button id="cancel-btn" class="form-button text-only">cancel</button>
+          <button id="confirm-btn" class="form-button">confirm</button>
+        </div>
+      </div>
+    </dialog>
+    <div class="wrapper">
+      <header class="header">
+        <div class="content-wrapper">
+          <img class="logo" src="/img/todo_logo.svg" alt="todo list logo" />
+          <nav class="navigation">
+            <ul>
+              <li><a class="nav-link active" href="/">home</a></li>
+              <li><a class="nav-link" href="/tasks.html">my tasks</a></li>
+              <li><a class="nav-link" href="/about.html">about</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <main class="main">
+        <div class="tasks-page">
+          <section class="add-task-section">
+            <form id="add-task-form">
+              <div class="inputs">
+                <input
+                  id="task-input"
+                  type="text"
+                  name="task"
+                  placeholder="add your task here"
+                />
+                <input id="task-date" type="date" name="date" />
+              </div>
+              <div class="form-actions">
+                <p id="validation-message"></p>
+                <button id="form-submit" type="submit">add</button>
+              </div>
+            </form>
+          </section>
+          <div class="tasks-lists">
+            <div class="active-tasks">
+              <h2>Active tasks</h2>
+              <ul class="tasks-list"></ul>
+            </div>
+            <div class="past-tasks">
+              <h2>Tasks done</h2>
+              <ul class="tasks-list"></ul>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer class="footer">
+        <p>2do &copy; 2024 adam czerniak</p>
+        <ul class="icons">
+          <li>
+            <a href=""><i class="fa-brands fa-square-facebook"></i></a>
+          </li>
+          <li>
+            <a href=""><i class="fa-brands fa-linkedin"></i></a>
+          </li>
+          <li>
+            <a href=""><i class="fa-brands fa-square-github"></i></a>
+          </li>
+        </ul>
+      </footer>
+    </div>
+
+    <script src="/js/tasks.js" type="module"></script>
+  </body>
+</html>

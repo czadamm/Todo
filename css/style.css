@@ -17,23 +17,31 @@ button {
   font-family: "Alegreya Sans SC", sans-serif;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 .content-wrapper {
   display: flex;
+  width: 100%;
   max-width: 1080px;
-  margin: 0 auto;
   padding: 0.5rem 3rem;
   justify-content: space-between;
   align-items: center;
 }
 
 .header {
+  display: flex;
+  justify-content: center;
   width: 100%;
   box-shadow: 0 0 10px 1px rgb(206, 206, 206);
 }
@@ -91,9 +99,9 @@ ul.icons a:hover {
 }
 
 .main {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  width: 100%;
   align-items: center;
 }
 
@@ -187,6 +195,19 @@ main p.first-paragraph {
   transition: 0.3s;
 }
 
+#add-task-btn {
+  display: none;
+}
+
+#my-tasks-btn {
+  display: none;
+}
+
+#add-task-btn.btn-active,
+#my-tasks-btn.btn-active {
+  display: block;
+}
+
 .actions button:hover {
   background-color: var(--button-hover);
 }
@@ -232,7 +253,8 @@ main p.first-paragraph {
 }
 
 #modal-close,
-#form-submit {
+#form-submit,
+.form-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -244,6 +266,11 @@ main p.first-paragraph {
   color: white;
   font-size: 1.3rem;
   line-height: 100%;
+}
+
+.text-only {
+  color: var(--secondary-color);
+  background-color: transparent;
 }
 
 #modal-close {
@@ -262,7 +289,6 @@ main p.first-paragraph {
 
 #form-submit {
   padding: 0 1rem;
-  text-align: right;
 }
 
 #modal-close:hover,
@@ -366,9 +392,52 @@ main p.first-paragraph {
 }
 
 .tasks-page {
-  width: 100%;
+  width: 100vw;
+  max-width: 1400px;
   align-items: center;
   justify-content: center;
+}
+
+.add-task-section {
+  width: 90%;
+  max-width: 900px;
+  margin: 3rem auto;
+}
+
+.add-task-section #add-task-form input {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 1.2rem;
+  background-color: transparent;
+}
+
+.add-task-section #add-task-form input::-webkit-input-placeholder {
+  color: rgb(207, 207, 207);
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 300;
+}
+
+.add-task-section #add-task-form input::-moz-placeholder {
+  color: rgb(207, 207, 207);
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 300;
+}
+
+.add-task-section #add-task-form input:-ms-input-placeholder {
+  color: rgb(207, 207, 207);
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 300;
+}
+
+.add-task-section #add-task-form input::-ms-input-placeholder {
+  color: rgb(207, 207, 207);
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 300;
+}
+
+.add-task-section #add-task-form input::placeholder {
+  color: rgb(207, 207, 207);
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 300;
 }
 
 .tasks-lists {
@@ -379,6 +448,7 @@ main p.first-paragraph {
 }
 
 .tasks-lists h2 {
+  margin-bottom: 1rem;
   text-align: center;
   color: var(--secondary-color);
   text-transform: uppercase;
@@ -391,7 +461,6 @@ main p.first-paragraph {
 .tasks-list {
   display: flex;
   gap: 1rem;
-  justify-content: center;
   list-style: none;
   padding: 1rem;
 }
@@ -400,6 +469,10 @@ main p.first-paragraph {
   padding: 1rem;
   opacity: 1;
   box-shadow: 0 0 5px 3px rgb(240, 240, 240);
+}
+
+.no-tasks-msg {
+  text-align: center;
 }
 
 .new-task {
@@ -418,16 +491,26 @@ main p.first-paragraph {
 }
 
 .active-tasks ul {
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media screen and (min-width: 1080px) {
+  .active-tasks ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .active-tasks ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .active-tasks li {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 45%;
-  max-width: 300px;
-  flex-wrap: wrap;
 }
 
 .past-tasks {
@@ -508,4 +591,32 @@ progress {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+.confirm-modal {
+  width: 400px;
+}
+
+.confirm-modal .modal-content {
+  width: 100%;
+}
+
+.confirm-actions {
+  display: flex;
+  /* gap: 1rem; */
+  justify-content: flex-end;
+}
+
+.confirm-actions button {
+  padding: 0 1rem;
+  text-transform: none;
+}
+
+.confirm-actions button:hover {
+  background-color: var(--button-hover);
+}
+
+.confirm-actions button.text-only:hover {
+  background-color: transparent;
+  color: var(--button-hover);
 }

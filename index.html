@@ -7,7 +7,7 @@
       name="keywords"
       content="todo, list, todolist, todos, task, tasklist, tasks"
     />
-    <title>ToDo List</title>
+    <title>2DO Home</title>
     <link rel="stylesheet" href="/css/style.css" />
     <meta
       name="description"
@@ -30,12 +30,13 @@
           </div>
           <div class="form-actions">
             <p id="validation-message"></p>
-            <button id="form-submit" type="submit">add</button>
+            <button id="form-submit" class="form-button" type="submit">
+              add
+            </button>
           </div>
         </form>
       </div>
     </dialog>
-
     <div class="wrapper">
       <header class="header">
         <div class="content-wrapper">
@@ -43,13 +44,12 @@
           <nav class="navigation">
             <ul>
               <li><a class="nav-link active" href="/">home</a></li>
-              <li><a class="nav-link" href="/tasks">my tasks</a></li>
-              <li><a class="nav-link" href="/about">about</a></li>
+              <li><a class="nav-link" href="/tasks.html">my tasks</a></li>
+              <li><a class="nav-link" href="/about.html">about</a></li>
             </ul>
           </nav>
         </div>
       </header>
-
       <main class="main">
         <div class="home-page">
           <div class="welcome-msg">
@@ -77,39 +77,16 @@
           </div>
           <div class="actions">
             <p id="actions-paragraph">
-              Seems like you don't have any task yet, use button belowe to
-              create one!
+              Seems like you don't have any task yet, use button below to create
+              one!
             </p>
-            <button id="add-task">Add your task</button>
-          </div>
-        </div>
-
-        <div class="tasks-page">
-          <div class="welcome-msg">
-            <img src="/img/todo_logo.svg" alt="big todo list logo" />
-            <h1>your tasks</h1>
-          </div>
-          <div class="tasks-lists">
-            <div class="active-tasks">
-              <h2>Active tasks</h2>
-              <ul class="tasks-list"></ul>
-            </div>
-            <div class="past-tasks">
-              <h2>Tasks done</h2>
-              <ul class="tasks-list">
-                <li class="task-item">
-                  <h3>Task text</h3>
-                  <p>Due date:</p>
-                  <p>Completion date:</p>
-                </li>
-              </ul>
-            </div>
+            <button id="add-task-btn" class="">add your first task</button>
+            <button id="my-tasks-btn" class="">my tasks</button>
           </div>
         </div>
       </main>
-
       <footer class="footer">
-        <p>&copy; 2024 adam czerniak</p>
+        <p>2do &copy; 2024 adam czerniak</p>
         <ul class="icons">
           <li>
             <a href=""><i class="fa-brands fa-square-facebook"></i></a>

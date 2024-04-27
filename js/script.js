@@ -1,6 +1,29 @@
 import * as utils from "./utils.js";
 
-const buttonAddTask = document.getElementById("add-task");
+// get tasks from LocalStorage or [] if not set
+const myTasks = JSON.parse(localStorage.getItem("myTasks")) || [];
+
+const buttonAddTask = document.getElementById("add-task-btn");
+const buttonMyTasks = document.getElementById("my-tasks-btn");
+const paragraph = document.getElementById("actions-paragraph");
+
+if (myTasks.length === 0) {
+  buttonAddTask.className = "btn-active";
+  buttonMyTasks.className = "";
+  paragraph.innerText =
+    "Seems like you don't have any task yet, use button belowe to create one!";
+} else {
+  buttonAddTask.className = "";
+  buttonMyTasks.className = "btn-active";
+  paragraph.textContent = "";
+}
+
+buttonMyTasks.addEventListener("click", () => {
+  location.href = "/tasks.html";
+});
+
+// end conditionally change button and paragraph text
+
 const dialog = document.getElementById("modal");
 
 // open modal
@@ -25,82 +48,19 @@ dialogClose.addEventListener("click", () => {
 });
 // end modal
 
-// loading tasks from LocalStorage
-const myTasks = JSON.parse(localStorage.getItem("myTasks")) || [];
-
-// conditionally change button text and paragraph
-const paragraph = document.getElementById("actions-paragraph");
-
-if (myTasks.length === 0) {
-  buttonAddTask.innerText = "add your first task";
-  paragraph.innerText =
-    "Seems like you don't have any task yet, use button belowe to create one!";
-} else {
-  buttonAddTask.textContent = "add task";
-  paragraph.textContent = "";
-
-  reloadActiveList();
-}
-// end conditionally change button text and paragraph
-
-function reloadActiveList() {
-  const activeList = document.querySelector(".active-tasks > .tasks-list");
-  console.log(activeList);
-
-  activeList.innerHTML = "";
-
-  if (myTasks.length > 0) {
-    myTasks.forEach((task) => {
-      const singleTask = document.createElement("li");
-      singleTask.id = task.id;
-      singleTask.className = "task-item";
-      singleTask.innerHTML = `<div>
-      <div class="task-actions">
-      <button class="complete">
-      <i class="fa-solid fa-check"></i>
-        </button>
-      <div>
-        <button class="priority">
-          <i class="fa-regular fa-star"></i>
-        </button>
-        <button class="remove">
-          <i class="fa-solid fa-trash"></i>
-        </button>
-      </div>
-      </div>
-      <h3>${task.task}</h3>
-      <p>Due: ${task.due}</p>
-      </div>
-      <div class="progress-bar">
-        <label for="progress">Time left:</label>
-        <progress id="progress" value="50" max="100"></progress>
-      </div>`;
-
-      activeList.appendChild(singleTask);
-    });
-  }
-}
-
 // adding task to array and to LocalStorage
 function addTask(task) {
   myTasks.push(task);
   localStorage.setItem("myTasks", JSON.stringify(myTasks));
 
-  reloadActiveList();
-
-  const lastTask = document.querySelector(
-    ".active-tasks > .tasks-list > li:last-of-type"
-  );
-
-  function removeNewClass() {
-    lastTask.classList.remove("hide");
-    lastTask.removeEventListener("webkitAnimationEnd", removeNewClass, false);
-  }
-
-  lastTask.classList.add("new-task");
-  lastTask.addEventListener("webkitAnimationEnd", removeNewClass, false);
-
   errorMessage.classList.add("success");
+
+  setTimeout(() => {
+    dialog.classList.add("hide");
+    dialog.addEventListener("webkitAnimationEnd", closeModalHandler, false);
+    errorMessage.classList.remove("success");
+    location.href = "/tasks.html";
+  }, 2000);
 }
 
 function checkInput(input) {
@@ -108,15 +68,9 @@ function checkInput(input) {
     errorMessage.textContent = "all fields are required!";
     errorMessage.classList.add("error");
 
-    throw new Error(input.name + "can not be empty");
+    throw new Error(input.name + " can not be empty");
   } else {
     errorMessage.textContent = "task added successfully";
-
-    setTimeout(() => {
-      dialog.classList.add("hide");
-      dialog.addEventListener("webkitAnimationEnd", closeModalHandler, false);
-      errorMessage.classList.remove("success");
-    }, 2000);
   }
 }
 
