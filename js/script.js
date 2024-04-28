@@ -11,7 +11,7 @@ if (myTasks.length === 0) {
   buttonAddTask.className = "btn-active";
   buttonMyTasks.className = "";
   paragraph.innerText =
-    "Seems like you don't have any task yet, use button belowe to create one!";
+    "Seems like you don't have any task yet, use button below to create one!";
 } else {
   buttonAddTask.className = "";
   buttonMyTasks.className = "btn-active";
@@ -103,7 +103,7 @@ formSubmit.addEventListener("submit", (event) => {
     id,
     task: taskText,
     start: startDate,
-    due: taskDate,
+    due: taskDate.toLocaleDateString(),
     dueMillis: dueMillis,
     done: doneDate,
     priority: false,

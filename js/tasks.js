@@ -281,7 +281,7 @@ myTasks.forEach((task) => {
       let width = 100;
       // let width = task.progress;
 
-      const interval = setInterval(countdown, 1000);
+      const interval = setInterval(countdown, 100);
 
       function countdown() {
         if (width <= 0) {
@@ -291,7 +291,19 @@ myTasks.forEach((task) => {
           width -= 1;
           progress.style.width = width + "%";
 
+          if (width < 50) {
+            progress.style.backgroundColor = "#ebd515";
+            progress.style.boxShadow = "0 0 4px 2px #fff496";
+          }
+
+          if (width < 25) {
+            progress.style.backgroundColor = "#e74200";
+            progress.style.boxShadow = "0 0 4px 2px #ffb496";
+          }
+
           if (width < 10) {
+            progress.style.backgroundColor = "#e2004b";
+            progress.style.boxShadow = "0 0 4px 2px #ffd2d2";
             progressBG.className = "low-time";
           }
 
