@@ -94,13 +94,20 @@ formSubmit.addEventListener("submit", (event) => {
 
   const id = utils.randomId(1, 2);
   const taskText = inputText.value;
-  const taskDate = new Date(date.value).toLocaleDateString();
+  const startDate = new Date().getTime();
+  const taskDate = new Date(date.value);
+  const dueMillis = taskDate.getTime();
+  const doneDate = "";
 
   const task = {
     id,
     task: taskText,
+    start: startDate,
     due: taskDate,
+    dueMillis: dueMillis,
+    done: doneDate,
     priority: false,
+    progress: 100,
   };
 
   addTask(task);

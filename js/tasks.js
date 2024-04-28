@@ -67,8 +67,8 @@ function reloadCompleteList() {
       singleTask.id = task.id;
       singleTask.className = "task-item";
       singleTask.innerHTML = `<h3>${task.task}</h3>
-      <p>Due date: ${task.due}</p>
-      <p>Completion date: ${task.done}</p>`;
+      <p>Due date: <span>${task.due}</span></p>
+      <p>Completion date: <span>${task.done}</span></p>`;
 
       doneList.appendChild(singleTask);
     });
@@ -131,15 +131,20 @@ formSubmit.addEventListener("submit", (event) => {
 
   const id = utils.randomId(1, 2);
   const taskText = inputText.value;
-  const taskDate = new Date(date.value).toLocaleDateString();
+  const startDate = new Date().getTime();
+  const taskDate = new Date(date.value);
+  const dueMillis = taskDate.getTime();
   const doneDate = "";
 
   const task = {
     id,
     task: taskText,
-    due: taskDate,
+    start: startDate,
+    due: taskDate.toLocaleDateString(),
+    dueMillis: dueMillis,
     done: doneDate,
     priority: false,
+    progress: 100,
   };
 
   addTask(task);
@@ -259,3 +264,43 @@ function addEventsToPriorityButtons() {
     });
   });
 }
+
+// progress bar
+
+myTasks.forEach((task) => {
+  const timeForTask = task.dueMillis - task.start;
+  const step = timeForTask / 100;
+
+  let inProgress = false;
+  function startCountdown() {
+    if (!inProgress) {
+      inProgress = true;
+
+      const progress = document.getElementById("progress-left");
+      const progressBG = document.getElementById("progress-bar");
+      let width = 100;
+      // let width = task.progress;
+
+      const interval = setInterval(countdown, 1000);
+
+      function countdown() {
+        if (width <= 0) {
+          clearInterval(interval);
+          inProgress = false;
+        } else {
+          width -= 1;
+          progress.style.width = width + "%";
+
+          if (width < 10) {
+            progressBG.className = "low-time";
+          }
+
+          // myTasks[index].progress = width;
+          // localStorage.setItem("myTasks", JSON.stringify(myTasks));
+        }
+      }
+    }
+  }
+
+  startCountdown();
+});
