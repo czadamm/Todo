@@ -470,6 +470,7 @@ main p.first-paragraph {
   padding: 1rem;
   opacity: 1;
   box-shadow: 0 0 5px 3px rgb(240, 240, 240);
+  border-radius: 5px;
 }
 
 .no-tasks-msg {
@@ -528,6 +529,16 @@ main p.first-paragraph {
   width: 100%;
 }
 
+.past-tasks h3 {
+  margin-bottom: 1rem;
+}
+
+.past-tasks p {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
 .progress-bar-section {
   display: flex;
   margin-top: 1rem;
@@ -545,15 +556,46 @@ main p.first-paragraph {
 #progress-left {
   height: 100%;
   width: 100%;
+  border-radius: 5px;
   background-color: var(--secondary-color);
 }
 
 #progress-bar {
   height: 50%;
   flex-grow: 1;
-  background-color: rgb(248, 248, 248);
+  background-color: rgb(255, 255, 255);
   border-radius: 20px;
+  box-shadow: 1px 1px 4px 2px rgb(235, 235, 235);
   overflow: hidden;
+}
+
+.low-time {
+  -webkit-animation: lowTime 0.5s infinite;
+  animation: lowTime 0.5s infinite;
+}
+
+@-webkit-keyframes lowTime {
+  0% {
+    background-color: white;
+  }
+  50% {
+    background-color: #ffdfe9;
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+@keyframes lowTime {
+  0% {
+    background-color: rgb(255, 247, 247);
+  }
+  50% {
+    background-color: #ffe6ee;
+  }
+  100% {
+    background-color: rgb(255, 247, 247);
+  }
 }
 
 .task-actions {
@@ -562,13 +604,16 @@ main p.first-paragraph {
 }
 
 .task-actions button {
-  width: 1.4rem;
   height: 1.4rem;
   border: none;
   background-color: transparent;
   color: var(--secondary-color);
   transition: 0.2s;
   cursor: pointer;
+}
+
+.task-actions button.remove {
+  margin-left: 0.6rem;
 }
 
 .task-actions button:hover {
