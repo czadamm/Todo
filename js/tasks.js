@@ -171,7 +171,7 @@ formSubmit.addEventListener("submit", (event) => {
     id,
     task: taskText,
     start: startDate,
-    due: taskDate.toLocaleDateString(),
+    due: taskDate.toLocaleString(),
     dueMillis: dueMillis,
     done: doneDate,
     priority: false,
