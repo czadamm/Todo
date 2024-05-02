@@ -307,6 +307,27 @@ function reloadProgressBars() {
     let width = task.progress;
     bar.style.width = width + "%";
 
+    if (width < 50) {
+      bar.style.backgroundColor = "#ebd515";
+      bar.style.boxShadow = "0 0 4px 2px #fff496";
+    }
+
+    if (width < 25) {
+      bar.style.backgroundColor = "#e74200";
+      bar.style.boxShadow = "0 0 4px 2px #ffb496";
+    }
+
+    if (width < 10) {
+      bar.style.backgroundColor = "#e2004b";
+      bar.style.boxShadow = "0 0 4px 2px #ffd2d2";
+      bar.parentNode.className = "progress-bar low-time";
+    }
+
+    if (myTasks.length) {
+      myTasks[index].progress = width;
+      localStorage.setItem("myTasks", JSON.stringify(myTasks));
+    }
+
     const totalTimeForTask = task.dueMillis - task.start;
     const step = totalTimeForTask / 100;
 
