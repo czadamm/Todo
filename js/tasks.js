@@ -36,12 +36,10 @@ function reloadActiveList() {
         timerContent = h + " hour" + m + " minutes";
       } else if ((d == 0) & (h == 0)) {
         timerContent = m + " minutes";
-      } else if (m <= 1) {
+      } else if (m < 1) {
         timerContent = "less than 1 minute";
-      } else if ((d == 0) & (h == 0) & (m == 0)) {
-        timerContent = "expired";
       } else {
-        timerContent = "wrong due date";
+        timerContent = "past due";
       }
 
       const singleTask = document.createElement("li");
@@ -307,6 +305,8 @@ function reloadProgressBars() {
     const task = myTasks[index];
 
     let width = task.progress;
+    bar.style.width = width + "%";
+
     const totalTimeForTask = task.dueMillis - task.start;
     const step = totalTimeForTask / 100;
 
