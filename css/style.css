@@ -549,19 +549,12 @@ main p.first-paragraph {
 
 .progress-bar-section {
   display: flex;
+  gap: 1rem;
   margin-top: 1rem;
   align-items: center;
 }
 
-.progress-label {
-  width: 5.3rem;
-}
-
-.progress-label#timeLeft {
-  text-align: right;
-}
-
-#progress-left {
+.progress-left {
   height: 100%;
   width: 100%;
   border-radius: 5px;
@@ -569,13 +562,18 @@ main p.first-paragraph {
   box-shadow: 0 0 4px 2px #c6ffce;
 }
 
-#progress-bar {
+.progress-bar {
   height: 50%;
   flex-grow: 1;
   background-color: rgb(241, 241, 241);
   border-radius: 20px;
   /* box-shadow: 1px 1px 4px 2px rgb(235, 235, 235); */
   /* overflow: hidden; */
+}
+
+.time-left {
+  width: 80px;
+  text-align: right;
 }
 
 .low-time {

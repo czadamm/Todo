@@ -11,6 +11,39 @@ function reloadActiveList() {
 
   if (myTasks.length > 0) {
     myTasks.forEach((task) => {
+      const currentDate = new Date().getTime();
+      const timeLeft = task.dueMillis - currentDate;
+
+      const daysLeft = timeLeft / (1000 * 60 * 60 * 24);
+      const absoluteDays = Math.floor(daysLeft);
+      const d = absoluteDays > 9 ? absoluteDays : "0" + absoluteDays;
+
+      const hoursLeft = (daysLeft - absoluteDays) * 24;
+      const absoluteHours = Math.floor(hoursLeft);
+      const h = absoluteHours > 9 ? absoluteHours : "0" + absoluteHours;
+
+      const minutesLeft = (hoursLeft - absoluteHours) * 60;
+      const absoluteMinutes = Math.floor(minutesLeft);
+      const m = absoluteMinutes > 9 ? absoluteMinutes : "0" + absoluteMinutes;
+
+      let timerContent = "";
+
+      if (d > 1) {
+        timerContent = d + "days";
+      } else if ((d <= 1) & (h > 1)) {
+        timerContent = h + " hours";
+      } else if ((d == 0) & (h == 1)) {
+        timerContent = h + " hour" + m + " minutes";
+      } else if ((d == 0) & (h == 0)) {
+        timerContent = m + " minutes";
+      } else if (m <= 1) {
+        timerContent = "less than 1 minute";
+      } else if ((d == 0) & (h == 0) & (m == 0)) {
+        timerContent = "expired";
+      } else {
+        timerContent = "wrong due date";
+      }
+
       const singleTask = document.createElement("li");
       singleTask.id = task.id;
       singleTask.className = "task-item";
@@ -36,10 +69,10 @@ function reloadActiveList() {
         </div>
         <div class="progress-bar-section">
           <p class="progress-label">Time left:</label>
-          <div id="progress-bar">
-            <div id="progress-left"></div>
+          <div class="progress-bar" data-key=${task.id}>
+            <div class="progress-left"></div>
           </div>
-          <p class="progress-label" id="timeLeft">1d 22h 3m</p>
+          <p class="time-left">${timerContent}</p>
         </div>`;
 
       activeList.appendChild(singleTask);
@@ -52,8 +85,8 @@ function reloadActiveList() {
   addEventsToRemoveButtons();
   addEventsToCompleteButtons();
   addEventsToPriorityButtons();
+  reloadProgressBars();
 }
-
 reloadActiveList();
 
 function reloadCompleteList() {
@@ -265,54 +298,58 @@ function addEventsToPriorityButtons() {
   });
 }
 
-// progress bar
+function reloadProgressBars() {
+  const progressBars = document.querySelectorAll(".progress-left");
 
-myTasks.forEach((task) => {
-  const timeForTask = task.dueMillis - task.start;
-  const step = timeForTask / 100;
+  progressBars.forEach((bar) => {
+    const taskId = bar.parentNode.dataset.key;
+    const index = myTasks.findIndex((task) => task.id === taskId);
+    const task = myTasks[index];
 
-  let inProgress = false;
-  function startCountdown() {
+    let width = task.progress;
+    const totalTimeForTask = task.dueMillis - task.start;
+    const step = totalTimeForTask / 100;
+
+    let inProgress = false;
+
     if (!inProgress) {
       inProgress = true;
 
-      const progress = document.getElementById("progress-left");
-      const progressBG = document.getElementById("progress-bar");
-      let width = 100;
-      // let width = task.progress;
-
-      const interval = setInterval(countdown, 100);
+      const interval = setInterval(countdown, step);
 
       function countdown() {
         if (width <= 0) {
           clearInterval(interval);
           inProgress = false;
+          bar.style.width = width + "%";
+          bar.style.boxShadow = "0 0 4px 2px #ffd2d2";
+          bar.parentNode.className = "progress-bar low-time";
         } else {
           width -= 1;
-          progress.style.width = width + "%";
+          bar.style.width = width + "%";
 
           if (width < 50) {
-            progress.style.backgroundColor = "#ebd515";
-            progress.style.boxShadow = "0 0 4px 2px #fff496";
+            bar.style.backgroundColor = "#ebd515";
+            bar.style.boxShadow = "0 0 4px 2px #fff496";
           }
 
           if (width < 25) {
-            progress.style.backgroundColor = "#e74200";
-            progress.style.boxShadow = "0 0 4px 2px #ffb496";
+            bar.style.backgroundColor = "#e74200";
+            bar.style.boxShadow = "0 0 4px 2px #ffb496";
           }
 
           if (width < 10) {
-            progress.style.backgroundColor = "#e2004b";
-            progress.style.boxShadow = "0 0 4px 2px #ffd2d2";
-            progressBG.className = "low-time";
+            bar.style.backgroundColor = "#e2004b";
+            bar.style.boxShadow = "0 0 4px 2px #ffd2d2";
+            bar.parentNode.className = "progress-bar low-time";
           }
 
-          // myTasks[index].progress = width;
-          // localStorage.setItem("myTasks", JSON.stringify(myTasks));
+          if (myTasks.length) {
+            myTasks[index].progress = width;
+            localStorage.setItem("myTasks", JSON.stringify(myTasks));
+          }
         }
       }
     }
-  }
-
-  startCountdown();
-});
+  });
+}
