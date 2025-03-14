@@ -30,38 +30,41 @@
     </dialog>
     <div class="wrapper">
       <header class="header">
-        <div class="content-wrapper">
-          <img class="logo" src="/img/todo_logo.svg" alt="todo list logo" />
-          <nav class="navigation">
-            <ul>
-              <li><a class="nav-link" href="/">home</a></li>
-              <li>
-                <a class="nav-link active" href="/tasks.html">my tasks</a>
-              </li>
-              <li><a class="nav-link" href="/about.html">about</a></li>
-            </ul>
-          </nav>
+        <div class="header-image"></div>
+        <div class="top-bar">
+          <div class="content-wrapper">
+            <img class="logo" src="/img/todo_logo.svg" alt="todo list logo" />
+            <nav class="navigation">
+              <ul>
+                <li><a class="nav-link" href="/">home</a></li>
+                <li>
+                  <a class="nav-link active" href="/tasks.html">my tasks</a>
+                </li>
+                <li><a class="nav-link" href="/about.html">about</a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
+        <section class="add-task-section">
+          <form id="add-task-form">
+            <div class="inputs">
+              <input
+                id="task-input"
+                type="text"
+                name="task"
+                placeholder="add your task here"
+              />
+              <input id="task-date" type="datetime-local" name="date" />
+            </div>
+            <div class="form-actions">
+              <p id="validation-message"></p>
+              <button id="form-submit" type="submit">add</button>
+            </div>
+          </form>
+        </section>
       </header>
       <main class="main">
         <div class="tasks-page">
-          <section class="add-task-section">
-            <form id="add-task-form">
-              <div class="inputs">
-                <input
-                  id="task-input"
-                  type="text"
-                  name="task"
-                  placeholder="add your task here"
-                />
-                <input id="task-date" type="datetime-local" name="date" />
-              </div>
-              <div class="form-actions">
-                <p id="validation-message"></p>
-                <button id="form-submit" type="submit">add</button>
-              </div>
-            </form>
-          </section>
           <div class="tasks-lists">
             <div class="active-tasks">
               <h2>Active tasks</h2>

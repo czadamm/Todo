@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap');
 
 :root {
   --primary-color: #1f1f1f;
@@ -14,7 +14,7 @@
 
 html,
 button {
-  font-family: "Alegreya Sans SC", sans-serif;
+  font-family: 'Alegreya Sans SC', sans-serif;
 }
 
 body {
@@ -40,10 +40,29 @@ body {
 }
 
 .header {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  background-color: #459995;
+  /* box-shadow: 0 0 6px 0px rgb(40, 53, 43); */
+}
+
+.header-image {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 30%;
+  background-image: url(/img/trees-3294681_1920.jpg);
+  background-position: center;
+}
+
+.top-bar {
+  z-index: 999;
+  position: absolute;
   display: flex;
   justify-content: center;
   width: 100%;
-  box-shadow: 0 0 10px 1px rgb(206, 206, 206);
+  /* background-color: rgba(0, 0, 0, 0.329); */
 }
 
 .logo {
@@ -62,14 +81,16 @@ body {
 .nav-link {
   text-transform: uppercase;
   font-size: 1rem;
+  font-weight: normal;
   text-decoration: none;
-  color: var(--primary-color);
-  transition: 0.3s;
+  color: white;
+  transition: 0.1s;
+  border-bottom: 3px solid transparent;
 }
 
 .nav-link:hover,
 .active {
-  color: var(--button-hover);
+  border-bottom: 3px solid var(--secondary-color);
 }
 
 .footer {
@@ -99,9 +120,10 @@ ul.icons a:hover {
 }
 
 .main {
-  flex-grow: 1;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
+  padding: 3rem;
   align-items: center;
 }
 
@@ -114,7 +136,7 @@ ul.icons a:hover {
 }
 
 .profits {
-  margin-top: 4rem;
+  margin-top: 2rem;
   display: flex;
   gap: 2rem;
 }
@@ -149,7 +171,6 @@ ul.icons a:hover {
 }
 
 .welcome-msg {
-  margin-top: 2rem;
   text-align: center;
   text-transform: uppercase;
 }
@@ -165,8 +186,7 @@ ul.icons a:hover {
   font-weight: 500;
 }
 
-main p.first-paragraph {
-  margin-top: 2rem;
+p.first-paragraph {
   font-weight: 400;
 }
 
@@ -309,7 +329,7 @@ main p.first-paragraph {
   font-size: 1.1rem;
   border: none;
   border-bottom: 1px solid var(--primary-color);
-  background-color: rgb(247, 247, 247);
+  background-color: rgb(255, 255, 255);
 }
 
 #task-input {
@@ -336,8 +356,11 @@ main p.first-paragraph {
 }
 
 #validation-message.error {
-  color: #d30303;
+  padding: 4px 1rem;
+  color: #910000;
   opacity: 1;
+  border-radius: 20px;
+  background-color: rgb(255, 180, 180);
 }
 
 #validation-message.success {
@@ -399,63 +422,86 @@ main p.first-paragraph {
 }
 
 .add-task-section {
+  z-index: 999;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
   width: 90%;
   max-width: 900px;
-  margin: 3rem auto;
+  transform: translateX(-50%);
 }
 
 .add-task-section #add-task-form input {
-  font-family: "Alegreya Sans SC", sans-serif;
+  font-family: 'Alegreya Sans SC', sans-serif;
   font-size: 1.2rem;
-  background-color: transparent;
+  color: white;
+  opacity: 0.6;
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px solid white;
+}
+
+.add-task-section #add-task-form .inputs:hover input,
+.add-task-section #add-task-form input:focus {
+  opacity: 1;
+}
+
+.add-task-section #add-task-form input:first-child {
+  border-right: none;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+}
+
+.add-task-section #add-task-form input:last-child {
+  border-left: none;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
 }
 
 .add-task-section #add-task-form input::-webkit-input-placeholder {
-  color: rgb(207, 207, 207);
-  font-family: "Alegreya Sans SC", sans-serif;
+  color: rgb(255, 255, 255);
+  font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 300;
 }
 
 .add-task-section #add-task-form input::-moz-placeholder {
-  color: rgb(207, 207, 207);
-  font-family: "Alegreya Sans SC", sans-serif;
+  color: rgb(255, 255, 255);
+  font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 300;
 }
 
 .add-task-section #add-task-form input:-ms-input-placeholder {
-  color: rgb(207, 207, 207);
-  font-family: "Alegreya Sans SC", sans-serif;
+  color: rgb(255, 255, 255);
+  font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 300;
 }
 
 .add-task-section #add-task-form input::-ms-input-placeholder {
-  color: rgb(207, 207, 207);
-  font-family: "Alegreya Sans SC", sans-serif;
+  color: rgb(255, 255, 255);
+  font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 300;
 }
 
 .add-task-section #add-task-form input::placeholder {
-  color: rgb(207, 207, 207);
-  font-family: "Alegreya Sans SC", sans-serif;
+  color: rgb(255, 255, 255);
+  font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 300;
 }
 
 .tasks-lists {
   display: flex;
-  margin-top: 3rem;
   padding: 1rem 2rem;
   min-height: 400px;
   /* background-color: gray; */
 }
 
-.tasks-lists h2 {
+h2 {
   margin-bottom: 1rem;
   text-align: center;
   color: var(--secondary-color);
   text-transform: uppercase;
 }
 
-.tasks-lists h3 {
+h3 {
   margin-top: 4px;
 }
 

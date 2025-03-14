@@ -1,9 +1,9 @@
 export function randomId(letters = 3, digitsInPart = 6) {
-  const lettersArray = "abcdefghijkmnopqrstuvwxyz";
-  let randomLetters = "";
+  const lettersArray = 'abcdefghijkmnopqrstuvwxyz';
+  let randomLetters = '';
 
   if ((letters === 0) & (digitsInPart === 0)) {
-    throw new Error("At least one argument must be greater than 0");
+    throw new Error('At least one argument must be greater than 0');
   }
 
   for (let i = 0; i < letters; i++) {
